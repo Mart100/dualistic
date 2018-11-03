@@ -21,11 +21,9 @@ $(() => {
     ctx = canvas.getContext('2d')
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
-
-
+    game.loadLevel(levels[0])
     // start frame
     frame()
-    game.loadLevel(levels[0])
     setInterval(() => { tick() }, 10)
 })
 function toggleFullScreen() {

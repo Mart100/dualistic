@@ -1,13 +1,69 @@
-game.images.artemis = new Image()
-game.images.artemis.src = 'https://i.imgur.com/HtP2JaP.png'
+let sprites = {
+    artemis: {
+        player: {
+            still: {
+                side: [new Image(), new Image()],
+                back: [new Image(), new Image()],
+                front: [new Image(), new Image()]
+            },
+        },
+        grass: [new Image(), new Image()],
+        blocks: {
+            lamp: [new Image(), new Image()],
+            button: [new Image(), new Image()]
+        }
+    },
+    apollo: {
+        player: {
+            still: {
+                side: [new Image(), new Image()],
+                back: [new Image(), new Image()],
+                front: [new Image(), new Image()]
+            },
+        },
+        grass: [new Image(), new Image()],
+        blocks: {
+            lamp: [new Image(), new Image()],
+            button: [new Image(), new Image()]
+        }
+    }
+}
 
-game.images.apollo = new Image()
-game.images.apollo.src = 'https://i.imgur.com/XHxOMrW.png'
+// artemis player sprites
+sprites.artemis.player.still.side[0].src = 'https://i.imgur.com/eBo2PNv.png'
+sprites.artemis.player.still.side[1].src = 'https://i.imgur.com/hLScDHm.png'
 
-game.animations.artemis.player.still.side[0] = new Image()
-game.animations.artemis.player.still.side[0].src = 'https://i.imgur.com/PljWD6z.png'
+sprites.artemis.player.still.back[0].src = 'https://i.imgur.com/cIa5RQf.png'
+sprites.artemis.player.still.back[1].src = 'https://i.imgur.com/CZ7VWFh.png'
 
-game.animations.artemis.player.still.side[1] = new Image()
-game.animations.artemis.player.still.side[1].src = 'https://i.imgur.com/PljWD6z.png'
+sprites.artemis.player.still.front[0].src = 'https://i.imgur.com/2WwYvUl.png'
+sprites.artemis.player.still.front[1].src = 'https://i.imgur.com/2WwYvUl.png'
 
-game.animations.artemis
+// apollo player sprites
+sprites.apollo.player.still.side[0].src = 'https://i.imgur.com/oHUXIYO.png'
+sprites.apollo.player.still.side[1].src = 'https://i.imgur.com/oHUXIYO.png'
+
+sprites.apollo.player.still.back[0].src = 'https://i.imgur.com/oHUXIYO.png'
+sprites.apollo.player.still.back[1].src = 'https://i.imgur.com/oHUXIYO.png'
+
+sprites.apollo.player.still.front[0].src = 'https://i.imgur.com/oHUXIYO.png'
+sprites.apollo.player.still.front[1].src = 'https://i.imgur.com/oHUXIYO.png'
+
+
+
+sprites.artemis.grass[0].src = 'https://i.imgur.com/r5sVO7Y.png'
+sprites.artemis.grass[1].src = 'https://i.imgur.com/407XmgG.png'
+
+sprites.apollo.grass[0].src = 'https://i.imgur.com/jOm9RjT.png'
+sprites.apollo.grass[1].src = 'https://i.imgur.com/21RUAaK.png'
+
+
+sprites.artemis.blocks.lamp[0].src = 'https://i.imgur.com/sAUMzwS.png'
+sprites.artemis.blocks.lamp[1].src = 'https://i.imgur.com/laGvZao.png'
+sprites.apollo.blocks.lamp[0].src = 'https://i.imgur.com/sAUMzwS.png'
+sprites.apollo.blocks.lamp[1].src = 'https://i.imgur.com/laGvZao.png'
+
+sprites.artemis.blocks.button[0].src = 'https://i.imgur.com/YVeV0dj.png'
+sprites.artemis.blocks.button[1].src = 'https://i.imgur.com/aAnR0OD.png'
+sprites.apollo.blocks.button[0].src = 'https://i.imgur.com/YVeV0dj.png'
+sprites.apollo.blocks.button[1].src = 'https://i.imgur.com/aAnR0OD.png'

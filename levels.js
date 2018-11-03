@@ -6,21 +6,28 @@ let levels = [
             y: 25
         },
         artemis: [
-            x: 5,
-            y: 5,
-            world: 'artemis',
-            tileData: {
+            {
+                x: 5,
+                y: 5,
+                
                 type: 'button',
+                active: false,
                 trigger: {
                     x: 5,
                     y: 5,
                     world: 'apollo'
                 }
+                
             }
-        ]
+        ],
         apollo: [
-
-
+            {
+                x: 5,
+                y: 5,
+                type: 'lamp',
+                isActive: false
+                
+            }
         ]
     }
 ]
