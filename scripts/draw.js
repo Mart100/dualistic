@@ -13,44 +13,51 @@ function frame() {
 
 const draw = {
     grid: function() {
-        if(game.world == 'artemis') {
-            
-            ctx.strokeStyle = 'black'
-            ctx.fillStyle = 'white'
-        } else {
-            
-            ctx.strokeStyle = 'white'
-            ctx.fillStyle = 'black'
-        }
         //loops over all the grids
         for(let x=0; x < game.tiles.bounds.x; x++) {
             if(getCanvasPos(x-game.camera.x) < getCanvasPos(-1) || getCanvasPos(x-game.camera.x) > window.innerWidth) continue
             for(let y=0; y < game.tiles.bounds.y; y++) {
                 if(getCanvasPos(y-game.camera.y) < getCanvasPos(-1) || getCanvasPos(y-game.camera.y) > window.innerHeight) continue
-                
-                //ctx.strokeRect(getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y), getCanvasPos(1), getCanvasPos(1))
-                // draw grass
-                let grassImage = sprites[game.world].grass[game.animationCount % 2]
-                ctx.drawImage(grassImage, getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
-                let tile = game.tiles[game.world].find((t) => t.x == x && t.y == y)
-                if( tile != undefined) {
-                    if(tile != undefined) {
-                        switch(tile.type) {
-                            case('lamp'): {
-                                if(tile.active) ctx.drawImage(sprites[game.world].blocks.lamp[0], getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
-                                else ctx.drawImage(sprites[game.world].blocks.lamp[1], getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
-                                break;
-                            }
-                            case('button'): {
-                                if(tile.active) ctx.drawImage(sprites[game.world].blocks.button[1], getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
-                                else ctx.drawImage(sprites[game.world].blocks.button[0], getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
-                                break;
-                            }                                            
-                        }
-                    }
-                } 
+                draw.tile(x, y)
             }
         }
+    },
+    tile: function(x, y) {
+        ctx.save()
+        // draw grass
+        let grassImage = sprites[game.world].grass[game.animationCount % 2]
+        ctx.drawImage(grassImage, getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
+
+        // get tile and draw it
+        let tile = game.tiles[game.world].find((t) => t.x == x && t.y == y)
+        if(tile == undefined) return
+        let tileImage = sprites[game.world].blocks[tile.type][game.animationCount % sprites[game.world].blocks[tile.type].length]
+        let tileImagePos = {x: getCanvasPos(x-game.camera.x), y: getCanvasPos(y-game.camera.y)}
+
+        // exceptions
+        switch(tile.type) {
+            case('lamp'): {
+                tileImage = sprites[game.world].blocks[tile.type][tile.active ? 0 : 1]
+                break
+            }
+            case('button'): {
+                tileImage = sprites[game.world].blocks[tile.type][tile.active ? 1 : 0]
+                break
+            }
+        }
+
+        // facing
+        if(tile.facing != undefined) {
+            ctx.translate(tileImagePos.x+getCanvasPos(1)/2, tileImagePos.y+getCanvasPos(1)/2)
+            if(tile.facing == 'north') ctx.rotate(270*Math.PI/180)
+            if(tile.facing == 'east') ctx.rotate(0*Math.PI/180)
+            if(tile.facing == 'south') ctx.rotate(90*Math.PI/180)
+            if(tile.facing == 'west') ctx.rotate(180*Math.PI/180)
+            ctx.translate(-tileImagePos.x-getCanvasPos(1)/2, -tileImagePos.y-getCanvasPos(1)/2)
+        } 
+        // draw tile     
+        ctx.drawImage(tileImage, tileImagePos.x, tileImagePos.y)
+        ctx.restore()
     },
     player: function() {
         ctx.save()

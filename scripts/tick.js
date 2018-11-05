@@ -30,35 +30,42 @@ function tick() {
         game.animationCount++
         game.ticksTillNextAnimation = 40
     }
+    // resize canvas to window
+    if(canvas.width != window.innerWidth) canvas.width = window.innerWidth
+    if(canvas.width != window.innerHeight) canvas.height = window.innerHeight
 }
 
 function buttonCollision() {
-    let artemisPlayersTileX = game.players.artemis.x
-    let artemisPlayersTileY = game.players.artemis.y
-    let apolloPlayersTileX = game.players.apollo.x
-    let apolloPlayersTileY = game.players.apollo.y
 
     let artemisButtonsColliding = game.tiles.artemis.find(t => t.x == Math.floor(game.players.artemis.x) && t.y == Math.floor(game.players.artemis.y+0.5) && t.type == 'button')
     let apolloButtonsColliding = game.tiles.apollo.find(t => t.x == Math.floor(game.players.apollo.x) && t.y == Math.floor(game.players.apollo.y+0.5) && t.type == 'button')
+
+    // turn off all buttons in artemis
     for(let tile of game.tiles.artemis) {
         if(tile.type == 'button') {
             tile.active = false
             game.tiles[tile.trigger.world].find(t => t.x == tile.trigger.x && t.y == tile.trigger.y).active = false
         }
     }
-    
+
+    // turn off all buttons in apollo
     for(let tile of game.tiles.apollo) {
         if(tile.type == 'button') {
             tile.active = false
             game.tiles[tile.trigger.world].find(t => t.x == tile.trigger.x && t.y == tile.trigger.y).active = false
         }
     }
-    
-    if(artemisButtonsColliding != undefined) {
+
+    // if artemis is standing on a button
+    if(artemisButtonsColliding != undefined && !artemisButtonsColliding.active) {
         artemisButtonsColliding.active = true
         game.tiles[artemisButtonsColliding.trigger.world].find(t => t.x == artemisButtonsColliding.trigger.x && t.y == artemisButtonsColliding.trigger.y).active = true
+    } else {
+
     }
-    if(apolloButtonsColliding != undefined) {
+
+    // if apollo is standing on a button
+    if(apolloButtonsColliding != undefined && !apolloButtonsColliding.active) {
         apolloButtonsColliding.active = true
         game.tiles[apolloButtonsColliding.trigger.world].find(t => t.x == apolloButtonsColliding.trigger.x && t.y == apolloButtonsColliding.trigger.y).active = true
     }
@@ -75,4 +82,3 @@ function cameraMovement() {
     if((topRightX > 0 && topRightX+window.innerWidth/game.pixelSize/game.pixelInTile < game.tiles.bounds.x) && (Math.abs(game.players[game.world].x-game.camera.x-middleX) > 1))  game.camera.x += (game.players[game.world].x-game.camera.x-middleX)/30
     if((topRightY > 0 && topRightY+window.innerHeight/game.pixelSize/game.pixelInTile < game.tiles.bounds.y) && (Math.abs(game.players[game.world].y-game.camera.y-middleY) > 0.5))  game.camera.y += (game.players[game.world].y-game.camera.y-middleY)/15    
 }
-
