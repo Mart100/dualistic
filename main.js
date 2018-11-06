@@ -20,6 +20,8 @@ $(() => {
     canvas.height = window.innerHeight
     game.loadLevel(levels[0])
     // start frame
+    if(game.world == 'apollo') $('#canvas').css('background-color', '#3C8646') 
+    else $('#canvas').css('background-color', '#142D17')
     frame()
     setInterval(() => { tick() }, 10)
 })

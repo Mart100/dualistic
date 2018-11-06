@@ -2,25 +2,57 @@ function tick() {
     // on WASD or Arrows hold
     if(game.keys[87] || game.keys[38]) { // north
         game.facing = 'north'
-        if(game.players[game.world].y-1.5 > 0) game.players[game.world].y -= 0.05
-
+        //if(game.players[game.world].y-1.5 > 0) 
+       
+        move({
+            x: 0, 
+            y: -0.05
+        }, 
+        {
+            x: 0, 
+            y: -0.5
+        }, 0, -1)
     }
     if(game.keys[68] || game.keys[39]) { // east
         game.facing = 'east'
-        if(game.players[game.world].x+1.5 < game.tiles.bounds.x) game.players[game.world].x += 0.05
+        //if(game.players[game.world].x+1.5 < game.tiles.bounds.x) game.players[game.world].x += 0.05
+        move({
+            x: 0.05, 
+            y: 0
+        }, 
+        {
+            x: 0.5, 
+            y: 0
+        }, 1, 0)
     }
     if(game.keys[83] || game.keys[40]) { // south
         game.facing = 'south'
-        if(game.players[game.world].y+1.5 < game.tiles.bounds.y) game.players[game.world].y += 0.05
+        //if(game.players[game.world].y+1.5 < game.tiles.bounds.y) game.players[game.world].y += 0.05
+        move({
+            x: 0, 
+            y: 0.05
+        }, 
+        {
+            x: 0, 
+            y: 0.5
+        }, 0, 1)
     }
     if(game.keys[65] || game.keys[37]) { // west
         game.facing = 'west'
-        if(game.players[game.world].x-1.5 > 0) game.players[game.world].x -= 0.05
+        //if(game.players[game.world].x-1.5 > 0) game.players[game.world].x -= 0.05
+        move({
+            x: -0.05, 
+            y: 0
+        }, 
+        {
+            x: -0.5, 
+            y: 0
+        }, -1, 0)
     }
 
     cameraMovement()
     buttonCollision()
-
+    movingTiles()
     // animations
     game.ticksTillNextAnimation--
     if(game.ticksTillNextAnimation == 0) {
@@ -32,6 +64,47 @@ function tick() {
     if(canvas.width != window.innerHeight) canvas.height = window.innerHeight
 }
 
+function movingTiles() {
+    for(let i in game.tiles.inMovement) {
+        let tile = game.tiles.inMovement[i]
+        tile[0].x += tile[1][0]
+        tile[0].y += tile[1][1]
+        if(Math.abs(tile[0].x-tile[2][0]) < 0.001 && Math.abs(tile[0].y-tile[2][1]) < 0.001) {
+            
+            tile[0].x=tile[2][0]
+            tile[0].y=tile[2][1]
+            game.tiles.inMovement.splice(i)
+        }
+    }
+}
+
+
+const moveTime = 50
+function move(speed, collisionOffset, xOffset, yOffset) {
+    let player = game.players[game.world]
+    if(player.y+collisionOffset.y < 1 && collisionOffset.y != 0) return
+    if(player.x+collisionOffset.x < 1 && collisionOffset.x != 0) return
+    let tileColliding = game.tiles[game.world].find(tile => Math.floor(tile.x) == Math.floor(player.x+collisionOffset.x) && Math.floor(tile.y) == Math.floor(player.y+collisionOffset.y) && tile.fixed == undefined && game.pushables.includes(tile.type))
+    if(tileColliding != undefined) {
+        addMovingTile(tileColliding, player, speed, xOffset, yOffset)
+    } else {
+        game.players[game.world].y += speed.y
+        game.players[game.world].x += speed.x
+    }
+    
+}
+
+function addMovingTile(tile, player, speed, xOffset, yOffset) {
+    if(player.collidingTime > moveTime) {
+        let tileAfter = game.tiles[game.world].find(tile => tile.x == Math.round(tile.x+xOffset) && tile.y == Math.round(tile.y+yOffset))
+        if(tileAfter != undefined) addMovingTile(tileAfter, player, speed, xOffset, yOffset)
+        game.players[game.world].collidingTime = 0
+        game.tiles.inMovement.push([tile, [speed.x, speed.y], [Math.round(tile.x+xOffset), Math.round(tile.y+yOffset)]])
+        
+    } else player.collidingTime++
+}
+
+
 function buttonCollision() {
 
     let artemisButtonsColliding = game.tiles.artemis.find(t => t.x == Math.floor(game.players.artemis.x) && t.y == Math.floor(game.players.artemis.y+0.5) && t.type == 'button')
@@ -39,35 +112,19 @@ function buttonCollision() {
 
     // turn off all buttons in artemis
     for(let tile of game.tiles.artemis) {
-        if(tile.type == 'button') {
-            tile.active = false
-            game.tiles[tile.trigger.world].find(t => t.x == tile.trigger.x && t.y == tile.trigger.y).active = false
-        }
+        if(tile.type == 'button') game.deactivateBlock(tile)
     }
 
     // turn off all buttons in apollo
     for(let tile of game.tiles.apollo) {
-        if(tile.type == 'button') {
-            tile.active = false
-            game.tiles[tile.trigger.world].find(t => t.x == tile.trigger.x && t.y == tile.trigger.y).active = false
-        }
+        if(tile.type == 'button') game.deactivateBlock(tile)
     }
 
     // if artemis is standing on a button
-    if(artemisButtonsColliding != undefined && !artemisButtonsColliding.active) {
-        artemisButtonsColliding.active = true
-        game.tiles[artemisButtonsColliding.trigger.world].find(t => t.x == artemisButtonsColliding.trigger.x && t.y == artemisButtonsColliding.trigger.y).active = true
-    } else {
-
-    }
+    if(artemisButtonsColliding != undefined) game.activateBlock(artemisButtonsColliding)
 
     // if apollo is standing on a button
-    if(apolloButtonsColliding != undefined && !apolloButtonsColliding.active) {
-        apolloButtonsColliding.active = true
-        game.tiles[apolloButtonsColliding.trigger.world].find(t => t.x == apolloButtonsColliding.trigger.x && t.y == apolloButtonsColliding.trigger.y).active = true
-    }
-
-
+    if(apolloButtonsColliding != undefined) game.activateBlock(apolloButtonsColliding)
 }
 
 function cameraMovement() {

@@ -4,10 +4,8 @@ function frame() {
     // clear screen
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-
     draw.grid()
     draw.player()
-
 }
 
 
@@ -20,12 +18,12 @@ const draw = {
                 if(getCanvasPos(y-game.camera.y) < getCanvasPos(-1) || getCanvasPos(y-game.camera.y) > window.innerHeight) continue
                 // draw grass
                 draw.grass(x, y)
-
-                // find and draw tiles
-                let tiles = game.tiles[game.world].filter((t) => t.x == x && t.y == y)
-                tiles.sort((a, b) => game.drawOrder[b.type] - game.drawOrder[a.type] )
-                for(num in tiles) draw.tile(tiles[num])
             }
+        }
+        let tiles = game.tiles[game.world]
+        tiles.sort((a, b) => game.drawOrder[b.type] - game.drawOrder[a.type] )
+        for(let tile of tiles) {
+            draw.tile(tile)
         }
     },
     tile: function(tile) {
@@ -33,7 +31,8 @@ const draw = {
         let y = tile.y
         ctx.save()
         // get tile and draw it
-        let tileImage = sprites[game.world].blocks[tile.type][game.animationCount % sprites[game.world].blocks[tile.type].length]
+        let animationLength = sprites[game.world].blocks[tile.type].length
+        let tileImage = sprites[game.world].blocks[tile.type][game.animationCount % animationLength]
         let tileImagePos = {x: getCanvasPos(x-game.camera.x), y: getCanvasPos(y-game.camera.y)}
         // exceptions
         switch(tile.type) {
@@ -45,6 +44,19 @@ const draw = {
                 tileImage = sprites[game.world].blocks[tile.type][tile.active ? 1 : 0]
                 break
             }
+            case('portal'): {
+                if(tile.color != undefined) ctx.fillStyle = tile.color
+                if(tile.facing == 'north') {}
+                if(tile.facing == 'east') ctx.fillRect(tileImagePos.x+getCanvasPos(0.218), tileImagePos.y+getCanvasPos(0.218), getCanvasPos(0.53), getCanvasPos(0.56))
+                if(tile.facing == 'south') {}
+                if(tile.facing == 'west') ctx.fillRect(tileImagePos.x+getCanvasPos(0.248), tileImagePos.y+getCanvasPos(0.218), getCanvasPos(0.53), getCanvasPos(0.56))
+                break
+            }
+        }
+        // activation
+        if(sprites[game.world].blocks[tile.type].on != undefined) {
+            animationLength = sprites[game.world].blocks[tile.type][tile.active ? 'on' : 'off'].length
+            tileImage = sprites[game.world].blocks[tile.type][tile.active ? 'on' : 'off'][game.animationCount % animationLength]
         }
         // facing
         if(tile.facing != undefined) {

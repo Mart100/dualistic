@@ -6,8 +6,10 @@ $(document).on('keydown', (event) => {
             if(game.keys[event.keyCode]) return 
             if(game.world == 'artemis') {
                 game.world = 'apollo'
+                $('#canvas').css('background-color', '#3C8646')
             } else {
                 game.world = 'artemis'
+                $('#canvas').css('background-color', '#142D17')
             }
             
             break;

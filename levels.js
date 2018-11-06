@@ -7,24 +7,51 @@ let levels = [
         },
         artemis: [
             {
-                x: 5,
+                x: 6,
                 y: 5,
                 type: 'button',
                 active: false,
                 trigger: {
-                    x: 2,
+                    x: 3,
                     y: 3,
-                    world: 'apollo'
+                    world: 'artemis'
                 }
+            },            
+            {
+                x: 5,
+                y: 5,
+                type: 'lamp',
+                active: false,
+            },
+            {
+                x: 3,
+                y: 3,
+                type: 'laserEmitter',
+                facing: 'east',
+                active: false
+            },
+            {
+                x: 7,
+                y: 3,
+                type: 'portal',
+                facing: 'west',
+                active: false,
+                trigger: {
+                    world: 'apollo',
+                    x: 2,
+                    y: 3
+                },
+                color: '#4253f4'
             }
         ],
         apollo: [
             {
                 x: 2,
                 y: 3,
-                type: 'laserEmitter',
+                type: 'portal',
                 facing: 'east',
-                active: false
+                active: false,
+                color: '#4253f4'
                 
             },
             {
@@ -62,6 +89,18 @@ let levels = [
                 y: 5,
                 type: 'mirror',
                 facing: 'north'
+            },
+            {
+                x: 2,
+                y: 5,
+                type: 'laserReceiver',
+                facing: 'east',
+                active: false,
+                trigger: {
+                    x: 5,
+                    y: 5,
+                    world: 'artemis'
+                }
             }
         ]
     }
