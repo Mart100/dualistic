@@ -12,7 +12,7 @@ let levels = [
                 type: 'button',
                 active: false,
                 trigger: {
-                    x: 1,
+                    x: 2,
                     y: 3,
                     world: 'apollo'
                 }
@@ -20,12 +20,18 @@ let levels = [
         ],
         apollo: [
             {
-                x: 1,
+                x: 2,
                 y: 3,
                 type: 'laserEmitter',
                 facing: 'east',
                 active: false
                 
+            },
+            {
+                x: 5,
+                y: 3,
+                type: 'mirror',
+                facing: 'east'
             }
         ]
     }

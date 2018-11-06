@@ -12,10 +12,6 @@ let artemis = {
 let currentLevel = 0
 // on page load
 $(() => {
-    // document.onclick = function (argument) {
-    //     toggleFullScreen()
-    //     console.log('yeet')
-    // }
     // prepare canvas
     canvas = document.getElementById('canvas')
     ctx = canvas.getContext('2d')

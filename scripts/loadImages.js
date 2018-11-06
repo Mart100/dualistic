@@ -12,7 +12,8 @@ let sprites = {
             lamp: [new Image(), new Image()],
             button: [new Image(), new Image()],
             laserEmitter: [new Image(), new Image()],
-            laser: [new Image(), new Image()]
+            laser: [new Image(), new Image()],
+            mirror: [new Image(), new Image()]
         }
     },
     apollo: {
@@ -28,7 +29,8 @@ let sprites = {
             lamp: [new Image(), new Image()],
             button: [new Image(), new Image()],
             laserEmitter: [new Image(), new Image()],
-            laser: [new Image(), new Image()]
+            laser: [new Image(), new Image()],
+            mirror: [new Image(), new Image()]
         }
     }
 }
@@ -85,3 +87,9 @@ sprites.artemis.blocks.laser[0].src = 'https://i.imgur.com/g4cA1Hb.png'
 sprites.artemis.blocks.laser[1].src = 'https://i.imgur.com/iYSFuhx.png'
 sprites.apollo.blocks.laser[0].src = 'https://i.imgur.com/g4cA1Hb.png'
 sprites.apollo.blocks.laser[1].src = 'https://i.imgur.com/iYSFuhx.png'
+
+// mirror
+sprites.artemis.blocks.mirror[0].src = 'https://i.imgur.com/g4cA1Hb.png'
+sprites.artemis.blocks.mirror[1].src = 'https://i.imgur.com/iYSFuhx.png'
+sprites.apollo.blocks.mirror[0].src = 'https://i.imgur.com/g4cA1Hb.png'
+sprites.apollo.blocks.mirror[1].src = 'https://i.imgur.com/iYSFuhx.png'

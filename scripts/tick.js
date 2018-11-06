@@ -1,24 +1,21 @@
 function tick() {
     // on WASD or Arrows hold
     if(game.keys[87] || game.keys[38]) { // north
-        if(game.players[game.world].y-1.5 < 0) return
-        game.players[game.world].y -= 0.05
         game.facing = 'north'
+        if(game.players[game.world].y-1.5 > 0) game.players[game.world].y -= 0.05
+
     }
     if(game.keys[68] || game.keys[39]) { // east
-        if(game.players[game.world].x+1.5 > game.tiles.bounds.x) return
-        game.players[game.world].x += 0.05
         game.facing = 'east'
+        if(game.players[game.world].x+1.5 < game.tiles.bounds.x) game.players[game.world].x += 0.05
     }
     if(game.keys[83] || game.keys[40]) { // south
-        if(game.players[game.world].y+1.5 > game.tiles.bounds.y) return
-        game.players[game.world].y += 0.05
         game.facing = 'south'
+        if(game.players[game.world].y+1.5 < game.tiles.bounds.y) game.players[game.world].y += 0.05
     }
     if(game.keys[65] || game.keys[37]) { // west
-        if(game.players[game.world].x-1.5 < 0) return
-        game.players[game.world].x -= 0.05
         game.facing = 'west'
+        if(game.players[game.world].x-1.5 > 0) game.players[game.world].x -= 0.05
     }
 
     cameraMovement()
@@ -79,6 +76,8 @@ function cameraMovement() {
     let middleX = window.innerWidth/2/game.pixelSize/game.pixelInTile
     let middleY = window.innerHeight/2/game.pixelSize/game.pixelInTile
     // If the difference (position) of the camera and player is greater than x. Make the camera move to the player
-    if((topRightX > 0 && topRightX+window.innerWidth/game.pixelSize/game.pixelInTile < game.tiles.bounds.x) && (Math.abs(game.players[game.world].x-game.camera.x-middleX) > 1))  game.camera.x += (game.players[game.world].x-game.camera.x-middleX)/30
-    if((topRightY > 0 && topRightY+window.innerHeight/game.pixelSize/game.pixelInTile < game.tiles.bounds.y) && (Math.abs(game.players[game.world].y-game.camera.y-middleY) > 0.5))  game.camera.y += (game.players[game.world].y-game.camera.y-middleY)/15    
+    if((topRightX > -0.5 && topRightX+window.innerWidth/game.pixelSize/game.pixelInTile < game.tiles.bounds.x) && (Math.abs(game.players[game.world].x-game.camera.x-middleX) > 1)) {
+        game.camera.x += (game.players[game.world].x-game.camera.x-middleX)/30
+    } else if (game.camera.x > 0.1 && game.camera.x < 2) game.camera.x += (game.players[game.world].x-game.camera.x-middleX)/75
+    if((topRightY > 0 && topRightY+window.innerHeight/game.pixelSize/game.pixelInTile < game.tiles.bounds.y) && (Math.abs(game.players[game.world].y-game.camera.y-middleY) > 0.5)) game.camera.y += (game.players[game.world].y-game.camera.y-middleY)/15    
 }
