@@ -18,22 +18,23 @@ const draw = {
             if(getCanvasPos(x-game.camera.x) < getCanvasPos(-1) || getCanvasPos(x-game.camera.x) > window.innerWidth) continue
             for(let y=0; y < game.tiles.bounds.y; y++) {
                 if(getCanvasPos(y-game.camera.y) < getCanvasPos(-1) || getCanvasPos(y-game.camera.y) > window.innerHeight) continue
-                draw.tile(x, y)
+                // draw grass
+                draw.grass(x, y)
+
+                // find and draw tiles
+                let tiles = game.tiles[game.world].filter((t) => t.x == x && t.y == y)
+                tiles.sort((a, b) => game.drawOrder[b.type] - game.drawOrder[a.type] )
+                for(num in tiles) draw.tile(tiles[num])
             }
         }
     },
-    tile: function(x, y) {
+    tile: function(tile) {
+        let x = tile.x
+        let y = tile.y
         ctx.save()
-        // draw grass
-        let grassImage = sprites[game.world].grass[game.animationCount % 2]
-        ctx.drawImage(grassImage, getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
-
         // get tile and draw it
-        let tile = game.tiles[game.world].find((t) => t.x == x && t.y == y)
-        if(tile == undefined) return
         let tileImage = sprites[game.world].blocks[tile.type][game.animationCount % sprites[game.world].blocks[tile.type].length]
         let tileImagePos = {x: getCanvasPos(x-game.camera.x), y: getCanvasPos(y-game.camera.y)}
-
         // exceptions
         switch(tile.type) {
             case('lamp'): {
@@ -45,7 +46,6 @@ const draw = {
                 break
             }
         }
-
         // facing
         if(tile.facing != undefined) {
             ctx.translate(tileImagePos.x+getCanvasPos(1)/2, tileImagePos.y+getCanvasPos(1)/2)
@@ -58,6 +58,11 @@ const draw = {
         // draw tile     
         ctx.drawImage(tileImage, tileImagePos.x, tileImagePos.y)
         ctx.restore()
+    },
+    grass(x, y) {
+        // draw grass
+        let grassImage = sprites[game.world].grass[game.animationCount % 2]
+        ctx.drawImage(grassImage, getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
     },
     player: function() {
         ctx.save()

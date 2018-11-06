@@ -52,6 +52,11 @@ const game = {
         game.tiles = level
         console.log(game.tiles)
     },
+    drawOrder: {
+        'laserEmitter': 90,
+        'mirror': 90,
+        'laser': 100,
+    },
     reset: function() {
 
     }

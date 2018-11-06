@@ -31,7 +31,37 @@ let levels = [
                 x: 5,
                 y: 3,
                 type: 'mirror',
+                facing: 'west'
+            },
+            {
+                x: 5,
+                y: 6,
+                type: 'mirror',
                 facing: 'east'
+            },
+            {
+                x: 7,
+                y: 6,
+                type: 'mirror',
+                facing: 'north'
+            },
+            {
+                x: 7,
+                y: 3,
+                type: 'mirror',
+                facing: 'south'
+            },
+            {
+                x: 8,
+                y: 3,
+                type: 'mirror',
+                facing: 'west'
+            },
+            {
+                x: 8,
+                y: 5,
+                type: 'mirror',
+                facing: 'north'
             }
         ]
     }

@@ -15,6 +15,7 @@ $(() => {
     // prepare canvas
     canvas = document.getElementById('canvas')
     ctx = canvas.getContext('2d')
+    ctx.imageSmoothingEnabled = false;
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     game.loadLevel(levels[0])
@@ -23,17 +24,9 @@ $(() => {
     setInterval(() => { tick() }, 10)
 })
 function toggleFullScreen() {
-    let docelem = document.documentElement;
-    if(docelem.requestFullscreen) {
-        docelem.requestFullscreen();
-    }
-    else if(docelem.mozRequestFullScreen) {
-        docelem.mozRequestFullScreen();
-    }
-    else if(docelem.webkitRequestFullScreen) {
-        docelem.webkitRequestFullScreen();
-    }
-    else if(docelem.msRequestFullscreen) {
-        docelem.msRequestFullscreen();
-    }
+    let docelem = document.documentElement
+    if(docelem.requestFullscreen) docelem.requestFullscreen()
+    else if(docelem.mozRequestFullScreen) docelem.mozRequestFullScreen()
+    else if(docelem.webkitRequestFullScreen) docelem.webkitRequestFullScreen()
+    else if(docelem.msRequestFullscreen) docelem.msRequestFullscreen()
 }
