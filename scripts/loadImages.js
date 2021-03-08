@@ -8,6 +8,7 @@ let sprites = {
             },
         },
         grass: [new Image(), new Image()],
+        sea: [new Image(), new Image()],
         blocks: {
             lamp: [new Image(), new Image()],
             button: [new Image(), new Image()],
@@ -27,6 +28,7 @@ let sprites = {
             },
         },
         grass: [new Image(), new Image()],
+        sea: [new Image(), new Image(), new Image(), new Image(), new Image(), new Image()],
         blocks: {
             lamp: [new Image(), new Image()],
             button: [new Image(), new Image()],
@@ -67,6 +69,17 @@ sprites.artemis.grass[0].src = 'https://i.imgur.com/r5sVO7Y.png'
 sprites.artemis.grass[1].src = 'https://i.imgur.com/407XmgG.png'
 sprites.apollo.grass[0].src = 'https://i.imgur.com/jOm9RjT.png'
 sprites.apollo.grass[1].src = 'https://i.imgur.com/21RUAaK.png'
+
+// sea
+sprites.artemis.sea[0].src = 'https://i.imgur.com/tPBW71q.png'
+sprites.artemis.sea[1].src = 'https://i.imgur.com/tPBW71q.png'
+
+sprites.apollo.sea[0].src = 'https://i.imgur.com/tPBW71q.png'
+sprites.apollo.sea[1].src = 'https://i.imgur.com/tTMrCj6.png'
+sprites.apollo.sea[2].src = 'https://i.imgur.com/UfxWYY9.png'
+sprites.apollo.sea[3].src = 'https://i.imgur.com/ifVmZCu.png'
+sprites.apollo.sea[4].src = 'https://i.imgur.com/1tkIg6W.png'
+sprites.apollo.sea[5].src = 'https://i.imgur.com/NH0BCOV.png'
 
 // lamps
 sprites.artemis.blocks.lamp[0].src = 'https://i.imgur.com/sAUMzwS.png'

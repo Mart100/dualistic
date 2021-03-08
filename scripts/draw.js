@@ -1,4 +1,4 @@
-function frame() {
+function frame() {//yo was poppin
     requestAnimationFrame(frame)
 
     // clear screen
@@ -18,6 +18,8 @@ const draw = {
                 if(getCanvasPos(y-game.camera.y) < getCanvasPos(-1) || getCanvasPos(y-game.camera.y) > window.innerHeight) continue
                 // draw grass
                 draw.grass(x, y)
+                // draw grid if levelEditor
+                if(game.levelEditor) ctx.strokeRect(getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y), game.pixelSize*game.pixelInTile, game.pixelSize*game.pixelInTile)
             }
         }
         let tiles = game.tiles[game.world]
@@ -68,15 +70,15 @@ const draw = {
             ctx.translate(-tileImagePos.x-getCanvasPos(1)/2, -tileImagePos.y-getCanvasPos(1)/2)
         } 
         // draw tile     
-        ctx.drawImage(tileImage, tileImagePos.x, tileImagePos.y)
+        ctx.drawImage(tileImage, tileImagePos.x, tileImagePos.y, game.pixelSize*game.pixelInTile, game.pixelSize*game.pixelInTile)
         ctx.restore()
     },
     grass(x, y) {
         // draw grass
-        let grassImage = sprites[game.world].grass[game.animationCount % 2]
-        ctx.drawImage(grassImage, getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y))
+        ctx.drawImage(sprites[game.world].grass[game.animationCount % 2], getCanvasPos(x-game.camera.x), getCanvasPos(y-game.camera.y), game.pixelSize*game.pixelInTile, game.pixelSize*game.pixelInTile)
     },
     player: function() {
+        if(game.levelEditor) return
         ctx.save()
         // image position
         let imagePos = {
@@ -95,7 +97,7 @@ const draw = {
         }
         if(game.facing == 'south') image = sprites[game.world].player.still.front[game.animationCount % 2]        
 
-        ctx.drawImage(image, imagePos.x, imagePos.y)
+        ctx.drawImage(image, imagePos.x, imagePos.y, game.pixelSize*game.pixelInTile, game.pixelSize*game.pixelInTile)
         ctx.restore()
     }
 }

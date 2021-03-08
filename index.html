@@ -13,8 +13,28 @@
         <script src="scripts/game.js"></script>
         <script src="scripts/loadImages.js"></script>
         <script src="scripts/lasers.js"></script>
+        <script src="scripts/menu.js"></script>
+        <script src="scripts/levelEditor.js"></script>
     </head>
     <body>
+        <div id="menu">
+            <div id="menu-buttons">
+                <div id="menu-play" class="menu-button">Play</div>
+                <div id="menu-levelEditor" class="menu-button">Level Editor</div>
+            </div>
+        </div>
+        <div id="lvlEdit">
+            <button id="lvlEdit-levelJSON">levelJSON</button>
+            <button id="lvlEdit-buildMode">build</button>
+            <button id="lvlEdit-removeMode">remove</button>
+            <button id="lvlEdit-rotateMode">rotate</button>
+            <button id="lvlEdit-buildingJSON">buildingJSON</button>
+            Building: <input id="lvlEdit-buildingInput" type="text">
+            X:<span id="lvlEdit-mouseX"></span>
+            Y:<span id="lvlEdit-mouseY"></span>
+        </div>
+        <div id="textInput"><textarea></textarea><button id="textInputDone">Done!</button></div>
+        <div id="lvlEdit-minimize">-</div>
         <canvas id="canvas">
     </body>
 </html>

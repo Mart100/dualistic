@@ -2,24 +2,28 @@ const game = {
     keys: [],
     players: {
         apollo: {
-            x: 10,
-            y: 10,
-            collidingTime: 0
+            x: 4,
+            y: 4
         },
         artemis: {
-            x: 10,
-            y: 10,
-            collidingTime: 0
-
+            x: 4,
+            y: 4
         }
     },
     facing: 'east',
     images: {},
     ticksTillNextAnimation: 100,
     animationCount: 0,
+    totalTicks: 0,
     pixelSize: 4,
     pixelInTile: 32,
     tiles: {},
+    playerSpeed: 0.05,
+    levelEditor: false,
+    levelEdit: {
+        mode: 'build',
+        buildingType: 'mirror'
+    },
     camera: {
         x: 0,
         y: 0,

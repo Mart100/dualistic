@@ -1,5 +1,12 @@
 body {
     margin: 0px;
+    font-family: pixel;
+    user-select: none;
+}
+
+@font-face {
+    font-family: pixel;
+    src: url(pixelFont.ttf);
 }
 canvas {
     width: 100%;
@@ -11,4 +18,79 @@ canvas {
     image-rendering: -o-crisp-edges;
     image-rendering: optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
+}
+#menu {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%,-50%);
+    background-color: #121212;
+    user-select: none;
+}
+#menu-buttons {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 20%;
+    transform: translate(-50%,-50%);
+    background-color: #121212;
+    user-select: none;
+}
+.menu-button {
+    width: 300px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto 10;
+    cursor: pointer;
+}
+.menu-button:hover {
+    color: black;
+    background-color: white;
+}
+/*=========Level Editor==========*/
+#lvlEdit {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background-color: #0d0d0d;
+    display: none;
+    color: white;
+}
+#lvlEdit-minimize {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 25px;
+    color: white;
+    display: none;
+}
+#textInput {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80%;
+    height: 80%;
+    transform: translate(-50%,-50%);
+    background-color: black;
+    display: none;
+}
+#textInput textarea {
+    margin: 10px;
+    width: 98%;
+    height: 98%;
+}
+#textInput button {
+    position: relative;
+    bottom: 5px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100px;
 }
